@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm danh - Bài thi Lập Trình Web</title>
+    <!-- Gọi đúng file CSS gốc của dự án -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .diemdanh-wrapper {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Form danh sách điểm danh */
+        .list-box {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            border: 1px solid #eaeaea;
+        }
+
+        .list-box h2 {
+            margin: 0 0 20px 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            display: flex;
+            margin-bottom: 18px;
+            align-items: center;
+        }
+
+        .form-group label {
+            width: 30%;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: #fafafa;
+            color: #333;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #1976d2;
+            outline: none;
+            background-color: #fff;
+        }
+
+        /* Giao diện input readonly cho các trường cố định */
+        .readonly-input {
+            background-color: #f0f0f0 !important;
+            color: #666 !important;
+            border: 1px solid #ddd !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- THANH ĐIỀU HƯỚNG GỐC CỦA DỰ ÁN -->
+    <header class="site-header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="brand-logo">
+                    <span class="brand-badge">701 - ĐỀ 1</span>
+                    <div>
+                        <div class="brand-title">LẬP TRÌNH WEB</div>
+                        <div class="brand-subtitle">MSSV: 231A010849</div>
+                    </div>
+                </a>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                        <li><a href="lythuyet.html" class="nav-link">Lý thuyết</a></li>
+                        <li><a href="baitap01.html" class="nav-link">Bài tập 01</a></li>
+                        <li><a href="baitap02.html" class="nav-link">Bài tập 02</a></li>
+                        <li><a href="baitap03.html" class="nav-link">Bài tập 03</a></li>
+                        <li><a href="diemdanh.html" class="nav-link" style="color: #1976d2; font-weight: 800;">Điểm
+                                danh</a></li>
+                        <li><a href="about.html" class="nav-link">Giới thiệu</a></li>
+                        <li><a href="contact.html" class="nav-link">Liên hệ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH (Chỉ giữ lại đúng yêu cầu của thầy) -->
+    <main class="diemdanh-wrapper">
+
+        <section class="list-box">
+            <h2>DANH SÁCH ĐIỂM DANH 20/10/2026</h2>
+            <p style="margin-bottom: 30px; color: #666;">Mời các bạn đưa vào mục này các thông tin chi tiết:</p>
+
+            <form>
+                <div class="form-group">
+                    <label>Họ và tên:</label>
+                    <input type="text" value="Trương Bảo Khiêm" class="readonly-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Mã số SV:</label>
+                    <input type="text" value="231A010849" class="readonly-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Lớp:</label>
+                    <input type="text" value="261INT440701">
+                </div>
+                <div class="form-group">
+                    <label>Ngày sinh:</label>
+                    <input type="text" value="02/08/2005">
+                </div>
+                <div class="form-group">
+                    <label>Quê quán:</label>
+                    <input type="text" value="TP.HCM">
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ cư trú:</label>
+                    <input type="text" value="183/3k ấp 24 xã hóc môn">
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại:</label>
+                    <input type="tel" value="0778707306">
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" value="baokhiemt0208@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label>URL (website, fb, ...):</label>
+                    <input type="text" placeholder="Đường dẫn Facebook hoặc GitHub...">
+                </div>
+                <div class="form-group" style="align-items: flex-start;">
+                    <label style="padding-top: 10px;">Sở thích cá nhân:</label>
+                    <textarea rows="4" placeholder="(Ghi một vài sở thích tiêu biểu của bạn)"></textarea>
+                </div>
+
+                <p style="text-align: center; color: #d32f2f; font-weight: bold; margin-top: 30px;">Chúc Thầy vui vẻ.
+                </p>
+            </form>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - Bài Thi Lập Trình Web</title>
+    <!-- Gọi đúng file CSS gốc của dự án để giữ nguyên giao diện menu -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .home-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Khu vực chào mừng */
+        .welcome-box {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            border: 1px solid #eaeaea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-box h1 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 2rem;
+        }
+
+        .student-info {
+            background: #f8f9fa;
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        /* Khu vực danh sách yêu cầu */
+        .task-list-box {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            border: 1px solid #eaeaea;
+        }
+
+        .task-list-box h2 {
+            color: #d32f2f;
+            font-size: 1.4rem;
+            margin-top: 0;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-group {
+            margin-bottom: 25px;
+        }
+
+        .task-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .task-group h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .task-group ul {
+            line-height: 1.8;
+            color: #444;
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .task-group li {
+            margin-bottom: 8px;
+        }
+
+        .task-group li strong {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- THANH ĐIỀU HƯỚNG GỐC CỦA DỰ ÁN (Màu trắng, viền xanh) -->
+    <header class="site-header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="brand-logo">
+                    <span class="brand-badge">701 - ĐỀ 1</span>
+                    <div>
+                        <div class="brand-title">LẬP TRÌNH WEB</div>
+                        <div class="brand-subtitle">MSSV: 231A010849</div>
+                    </div>
+                </a>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="index.html" class="nav-link" style="color: #1976d2; font-weight: 800;">Trang
+                                chủ</a></li>
+                        <li><a href="lythuyet.html" class="nav-link">Lý thuyết</a></li>
+                        <li><a href="baitap01.html" class="nav-link">Bài tập 01</a></li>
+                        <li><a href="baitap02.html" class="nav-link">Bài tập 02</a></li>
+                        <li><a href="baitap03.html" class="nav-link">Bài tập 03</a></li>
+                        <li><a href="baitap22.html" class="nav-link">Bài tập 22</a></li>
+                        <li><a href="baitap23.html" class="nav-link">Bài tập 23</a></li>
+                        <li><a href="diemdanh.html" class="nav-link">Điểm danh</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="home-wrapper">
+
+        <!-- Khu vực chào mừng -->
+        <section class="welcome-box">
+            <h1>BÀI THI KẾT THÚC HỌC PHẦN</h1>
+            <h3 style="color: #666; margin-top: 5px;">Môn: Lập Trình Web Cơ Bản</h3>
+
+            <div class="student-info">
+                <p style="margin: 5px 0;"><strong>👤 Sinh viên thực hiện:</strong> Trương Bảo Khiêm</p>
+                <p style="margin: 5px 0;"><strong>🆔 Mã số sinh viên:</strong> 231A010849</p>
+            </div>
+
+            <p style="color: #7f8c8d; font-style: italic; margin-bottom: 0;">Sử dụng thanh Menu phía trên để điều hướng
+                đến các phần thi chi tiết.</p>
+        </section>
+
+        <!-- Khu vực liệt kê yêu cầu đề bài -->
+        <section class="task-list-box">
+            <h2>📋 NỘI DUNG CÁC PHẦN THI ĐÃ THỰC HIỆN</h2>
+
+            <div class="task-group">
+                <h3>Phần 1: Lý thuyết (40 điểm)</h3>
+                <ul>
+                    <li><strong>Câu 1:</strong> Phân biệt thuộc tính <code>position: relative</code> và
+                        <code>absolute</code> trong CSS.</li>
+                    <li><strong>Câu 2:</strong> Trình bày quy trình trỏ Domain/Hosting, phân tích rủi ro bảo mật hệ
+                        thống mạng.</li>
+                    <li><strong>Câu 3:</strong> So sánh <code>let</code>, <code>const</code>, <code>var</code> và giải
+                        thích cơ chế Hoisting, TDZ.</li>
+                    <li><strong>Câu 4:</strong> Ứng dụng mô hình Event Delegation và Event Bubbling trong JavaScript.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="task-group">
+                <h3>Phần 2: Thực hành (60 điểm)</h3>
+                <ul>
+                    <li><strong>Bài tập 1:</strong> Xây dựng trang danh sách sản phẩm, lập trình chức năng tìm kiếm sản
+                        phẩm theo tên không phân biệt chữ hoa/thường.</li>
+                    <li><strong>Bài tập 2:</strong> Thiết kế Form đăng ký hệ thống, kiểm tra tính hợp lệ của dữ liệu đầu
+                        vào (Regex) và lưu trữ vào <code>LocalStorage</code>.</li>
+                    <li><strong>Bài tập 3:</strong> Lập trình ứng dụng Đồng hồ đếm ngược, xử lý hiệu ứng cảnh báo khi
+                        sắp hết giờ và hiển thị Modal tự động.</li>
+                </ul>
+            </div>
+
+            <div class="task-group">
+                <h3>Phần bổ sung (Cấu trúc & Thông tin)</h3>
+                <ul>
+                    <li><strong>Bài tập 22 & 23:</strong> Tích hợp hiển thị kết quả trắc nghiệm và giao diện Đèn kéo
+                        quân 3D.</li>
+                    <li><strong>Điểm danh:</strong> Trang thông tin cá nhân và cung cấp liên kết triển khai (Deploy) dự
+                        án.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

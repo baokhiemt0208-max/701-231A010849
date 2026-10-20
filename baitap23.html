@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 23 - Đèn Kéo Quân</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --dark: #121212;
+            --dark-gray: #1e1e1e;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--dark);
+            background-image: radial-gradient(circle at 50% 50%, #2a2a2a 0%, #121212 100%);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Tiêu đề & Thông tin SV */
+        .header {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 60px;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .header p {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .header .highlight {
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        /* --- KHUNG CẢNH 3D --- */
+        .scene {
+            width: 200px;
+            height: 300px;
+            perspective: 1200px;
+            /* Độ sâu của 3D */
+            margin-top: 20px;
+        }
+
+        .carousel {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            animation: rotate 15s infinite linear;
+        }
+
+        /* Tạm dừng khi rê chuột vào khung đèn */
+        .carousel:hover {
+            animation-play-state: paused;
+        }
+
+        /* 6 Mặt của đèn */
+        .carousel__cell {
+            position: absolute;
+            width: 200px;
+            height: 300px;
+            left: 10px;
+            top: 10px;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.8);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: #000;
+        }
+
+        .carousel__cell img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+            opacity: 0.85;
+        }
+
+        .carousel__cell:hover {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+            border-color: var(--gold-light);
+        }
+
+        .carousel__cell:hover img {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        /* Tính toán góc quay cho 6 mặt (360 / 6 = 60 độ) */
+        /* Bán kính Z = (chiều rộng / 2) / tan(30 độ) = ~173px, cho rộng ra 220px để thoáng */
+        .carousel__cell:nth-child(1) {
+            transform: rotateY(0deg) translateZ(220px);
+        }
+
+        .carousel__cell:nth-child(2) {
+            transform: rotateY(60deg) translateZ(220px);
+        }
+
+        .carousel__cell:nth-child(3) {
+            transform: rotateY(120deg) translateZ(220px);
+        }
+
+        .carousel__cell:nth-child(4) {
+            transform: rotateY(180deg) translateZ(220px);
+        }
+
+        .carousel__cell:nth-child(5) {
+            transform: rotateY(240deg) translateZ(220px);
+        }
+
+        .carousel__cell:nth-child(6) {
+            transform: rotateY(300deg) translateZ(220px);
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        /* --- LIGHTBOX (Xem ảnh to) --- */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: var(--gold);
+            font-size: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            color: white;
+            transform: scale(1.2);
+        }
+
+        /* Hiệu ứng hạt bụi (trang trí) */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0, 0, 0, 0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.2;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-200px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles"></div>
+
+    <div class="header">
+        <h1>Đèn Kéo Quân 3D</h1>
+        <!-- ĐIỀN THÔNG TIN SINH VIÊN VÀO ĐÂY -->
+        <p>Thực hiện: <span class="highlight">[Trương Bảo Khiêm]</span> | Mã SV: <span
+                class="highlight">[231A010849]</span>
+        </p>
+    </div>
+
+    <!-- KHUNG ĐÈN KÉO QUÂN -->
+    <div class="scene">
+        <div class="carousel">
+            <!-- ẢNH 1 -->
+            <div class="carousel__cell" onclick="openLightbox(this)">
+                <img src="https://picsum.photos/id/1015/400/600" alt="Ảnh 1">
+            </div>
+
+            <!-- ẢNH 2 -->
+            <div class="carousel__cell" onclick="openLightbox(this)">
+                <img src="https://picsum.photos/id/1016/400/600" alt="Ảnh 2">
+            </div>
+
+            <!-- ẢNH 3 -->
+            <div class="carousel__cell" onclick="openLightbox(this)">
+                <img src="https://picsum.photos/id/1018/400/600" alt="Ảnh 3">
+            </div>
+
+            <!-- ẢNH 4 -->
+            <div class="carousel__cell" onclick="openLightbox(this)">
+                <img src="https://picsum.photos/id/1025/400/600" alt="Ảnh 4">
+            </div>
+
+            <!-- ẢNH 5 -->
+            <div class="carousel__cell" onclick="openLightbox(this)">
+                <img src="https://picsum.photos/id/1036/400/600" alt="Ảnh 5">
+            </div>
+
+            <!-- ẢNH 6 -->
+            <div class="carousel__cell" onclick="openLightbox(this)">
+                <img src="https://picsum.photos/id/1043/400/600" alt="Ảnh 6">
+            </div>
+        </div>
+    </div>
+
+    <!-- HỘP THOẠI XEM ẢNH TO (LIGHTBOX) -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">&times;</span>
+        <img id="lightbox-img" src="" alt="Zoomed Image">
+    </div>
+
+    <script>
+        // Hàm mở ảnh to khi click vào mặt đèn
+        function openLightbox(element) {
+            const imgSrc = element.querySelector('img').src;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('active');
+        }
+
+        // Hàm đóng ảnh to khi click ra ngoài
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
+</body>
+
+</html>

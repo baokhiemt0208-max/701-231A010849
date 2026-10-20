@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Phần 2 - Bài tập 03: Đồng hồ đếm ngược 10 phút MM:SS, animation cảnh báo dưới 1 phút và modal alert hết giờ - Môn Lập trình Web.">
+    <title>Bài Tập 03: Đồng Hồ Đếm Ngược 10 Phút | MSSV: 231A010849</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- THANH ĐIỀU HƯỚNG CHUNG (NAVBAR) -->
+    <header class="site-header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="brand-logo">
+                    <span class="brand-badge">701 - ĐỀ 1</span>
+                    <div>
+                        <div class="brand-title">LẬP TRÌNH WEB</div>
+                        <div class="brand-subtitle">MSSV: 231A010849</div>
+                    </div>
+                </a>
+
+                <button class="nav-toggle" aria-label="Bật tắt menu">☰</button>
+
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                        <li><a href="lythuyet.html" class="nav-link">Lý thuyết</a></li>
+                        <li><a href="baitap01.html" class="nav-link">Bài tập 01</a></li>
+                        <li><a href="baitap02.html" class="nav-link">Bài tập 02</a></li>
+                        <li><a href="baitap03.html" class="nav-link active">Bài tập 03</a></li>
+                        <li><a href="diemdanh.html" class="nav-link">Điểm danh</a></li>
+                        <li><a href="about.html" class="nav-link">Giới thiệu</a></li>
+                        <li><a href="contact.html" class="nav-link">Liên hệ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER TIÊU ĐỀ BÀI TẬP -->
+    <section class="page-banner">
+        <div class="container">
+            <h1>PHẦN 2 - BÀI TẬP 03: ĐỒNG HỒ ĐẾM NGƯỢC 10 PHÚT (MM:SS)</h1>
+            <p>Xử lý thời gian với setInterval/clearInterval, hiệu ứng CSS Warning & Modal Alert kết thúc</p>
+            <div class="exam-meta">
+                <span class="exam-meta-item">🏆 <strong>Thang điểm:</strong> 20 điểm</span>
+                <span class="exam-meta-item">⏱️ <strong>Khởi tạo:</strong> 10:00 (600 giây)</span>
+                <span class="exam-meta-item">⚠️ <strong>Cảnh báo:</strong> Đỏ nhấp nháy khi &lt; 01:00</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="main-content">
+        <div class="container">
+
+            <div class="content-card">
+                <h2>
+                    <span>⏰ ĐỒNG HỒ ĐẾM NGƯỢC THỜI GIAN LÀM BÀI THI</span>
+                    <span class="score-badge">20 Điểm</span>
+                </h2>
+
+                <!-- KHU VỰC ĐỒNG HỒ ĐẾM NGƯỢC -->
+                <div class="timer-container">
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                        Thời gian còn lại của phiên làm bài:
+                    </p>
+
+                    <!-- Màn hình hiển thị số thời gian MM:SS -->
+                    <div id="timerDisplay" class="timer-display">10:00</div>
+
+                    <!-- 3 Nút bấm điều khiển chính theo đề bài -->
+                    <div class="timer-controls">
+                        <button type="button" id="btnStart" class="btn btn-primary">
+                            ▶ Bắt đầu
+                        </button>
+                        <button type="button" id="btnPause" class="btn btn-secondary">
+                            ⏸ Tạm dừng
+                        </button>
+                        <button type="button" id="btnReset" class="btn btn-danger">
+                            🔄 Đặt lại
+                        </button>
+                    </div>
+
+                    <!-- Dòng trạng thái đồng hồ -->
+                    <div id="timerStatus" class="timer-status-text">
+                        Trạng thái: Sẵn sàng (Chưa bắt đầu)
+                    </div>
+
+                    <!-- Nút hỗ trợ giảng viên test nhanh hiệu ứng < 1 phút và modal hết giờ -->
+                    <div style="margin-top: 25px; padding-top: 15px; border-top: 1px dashed var(--border-color);">
+                        <span style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 8px;">
+                            💡 <em>Hỗ trợ chấm thi (Test nhanh):</em>
+                        </span>
+                        <button type="button" id="btnQuickTest65" class="btn btn-outline" style="font-size: 0.82rem; padding: 6px 12px; margin-right: 6px;">
+                            ⚡ Đặt 65s (Xem hiệu ứng đỏ nhấp nháy khi &lt; 1p)
+                        </button>
+                        <button type="button" id="btnQuickTest5" class="btn btn-outline" style="font-size: 0.82rem; padding: 6px 12px;">
+                            ⚡ Đặt 5s (Xem Modal Hết giờ làm bài)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KHUNG VĂN BẢN GIẢI THÍCH LOGIC TƯ DUY (BẮT BUỘC THEO ĐỀ BÀI) -->
+                <div class="logic-explanation-box">
+                    <h4>💡 Giải thích logic tư duy</h4>
+                    <p>
+                        Khi hết thời gian hoặc bấm Tạm dừng/Đặt lại, bắt buộc phải gọi hàm <code>clearInterval()</code> để hủy tiến trình chạy ngầm, tránh tràn bộ nhớ (memory leak). Khi deploy lên Hosting thực tế, để tránh việc người dùng gian lận chỉnh lại đồng hồ máy tính, cần lấy mốc thời gian từ Server (Server Time) thay vì lấy theo <code>new Date()</code> của Client.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODAL ALERT THÔNG BÁO: HẾT THỜI GIAN LÀM BÀI! -->
+    <div id="timeUpModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-icon" style="color: var(--danger-color);">🚨</div>
+            <h3 class="modal-title" style="color: var(--danger-color); font-size: 1.6rem;">
+                HẾT THỜI GIAN LÀM BÀI!
+            </h3>
+            <div class="modal-body">
+                Thời gian làm bài thi 10 phút của bạn đã kết thúc. Hệ thống đã tự động dừng đồng hồ và khóa phiên làm việc. Vui lòng kiểm tra lại kết quả và nộp bài!
+            </div>
+            <button type="button" class="btn btn-danger" onclick="closeModal('timeUpModal')">
+                Đã hiểu & Đóng thông báo
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER CHUNG -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <strong>Bài thi kết thúc học phần: Lập trình Web</strong> | Sinh viên: Nguyễn Gia Bảo - MSSV: 231A010849
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Trang chủ</a>
+                    <a href="lythuyet.html">Lý thuyết</a>
+                    <a href="baitap01.html">Bài tập 01</a>
+                    <a href="baitap02.html">Bài tập 02</a>
+                    <a href="baitap03.html">Bài tập 03</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT XỬ LÝ CHO BÀI TẬP 03 ================= -->
+    <script>
+        // BƯỚC 1: KHAI BÁO CÁC HẰNG SỐ VÀ BIẾN QUẢN LÝ THỜI GIAN
+        const THOI_GIAN_MAC_DINH = 600; // 10 phút = 600 giây theo đúng đề thi
+        let thoiGianConLai = THOI_GIAN_MAC_DINH;
+        let boDemTimer = null;          // Biến lưu trữ ID của hàm setInterval
+        let dangChay = false;           // Cờ theo dõi trạng thái đồng hồ đang chạy hay tạm dừng
+
+        // Lấy các phần tử DOM giao diện
+        const timerDisplay = document.getElementById("timerDisplay");
+        const timerStatus = document.getElementById("timerStatus");
+        const btnStart = document.getElementById("btnStart");
+        const btnPause = document.getElementById("btnPause");
+        const btnReset = document.getElementById("btnReset");
+        const btnQuickTest65 = document.getElementById("btnQuickTest65");
+        const btnQuickTest5 = document.getElementById("btnQuickTest5");
+
+        /**
+         * BƯỚC 2: HÀM CẬP NHẬT HIỂN THỊ ĐỒNG HỒ (MM:SS)
+         * Sử dụng Math.floor tính phút/giây và padStart(2, '0') để luôn có 2 chữ số
+         */
+        function capNhatGiaoDien() {
+            // Tính số phút và số giây còn lại
+            const phut = Math.floor(thoiGianConLai / 60);
+            const giay = thoiGianConLai % 60;
+
+            // Định dạng luôn có 2 chữ số (ví dụ: "09:05", "00:59")
+            const chuoiPhut = String(phut).padStart(2, "0");
+            const chuoiGiay = String(giay).padStart(2, "0");
+
+            timerDisplay.textContent = `${chuoiPhut}:${chuoiGiay}`;
+
+            // HIỆU ỨNG CSS: Khi thời gian dưới 1 phút (< 60 giây)
+            // Tự động thêm class .timer-warning để chữ chuyển sang màu đỏ và nhấp nháy cảnh báo
+            if (thoiGianConLai < 60 && thoiGianConLai > 0) {
+                timerDisplay.classList.add("timer-warning");
+            } else if (thoiGianConLai >= 60) {
+                timerDisplay.classList.remove("timer-warning");
+            }
+        }
+
+        /**
+         * BƯỚC 3: HÀM BẮT ĐẦU ĐẾM NGƯỢC
+         */
+        function batDauDem() {
+            // Nếu đồng hồ đang chạy thì không tạo thêm interval mới (tránh chạy tăng tốc gấp bội)
+            if (dangChay) return;
+
+            // Nếu thời gian đã về 0 thì không bấm bắt đầu được, yêu cầu reset
+            if (thoiGianConLai <= 0) {
+                alert("Thời gian đã kết thúc! Vui lòng nhấn nút 'Đặt lại' để bắt đầu phiên mới.");
+                return;
+            }
+
+            dangChay = true;
+            timerStatus.textContent = "Trạng thái: Đang đếm ngược ⏳";
+            timerStatus.style.color = "var(--primary-color)";
+
+            // Gọi setInterval mỗi 1000ms (1 giây) giảm 1 đơn vị
+            boDemTimer = setInterval(function () {
+                thoiGianConLai--;
+                capNhatGiaoDien();
+
+                // KHI THỜI GIAN VỀ 00:00
+                if (thoiGianConLai <= 0) {
+                    // Dừng tiến trình chạy ngầm
+                    clearInterval(boDemTimer);
+                    boDemTimer = null;
+                    dangChay = false;
+                    timerDisplay.classList.remove("timer-warning");
+
+                    timerStatus.textContent = "Trạng thái: ĐÃ HẾT THỜI GIAN ⛔";
+                    timerStatus.style.color = "var(--danger-color)";
+
+                    // Bật Modal Alert thông báo hết giờ làm bài
+                    openModal("timeUpModal");
+                }
+            }, 1000);
+        }
+
+        /**
+         * BƯỚC 4: HÀM TẠM DỪNG ĐỒNG HỒ
+         */
+        function tamDungDem() {
+            if (!dangChay) return;
+
+            // Bắt buộc clearInterval để hủy tiến trình chạy ngầm, tránh rò rỉ bộ nhớ
+            clearInterval(boDemTimer);
+            boDemTimer = null;
+            dangChay = false;
+
+            timerStatus.textContent = "Trạng thái: Đang tạm dừng ⏸";
+            timerStatus.style.color = "var(--text-muted)";
+        }
+
+        /**
+         * BƯỚC 5: HÀM ĐẶT LẠI (RESET) ĐỒNG HỒ
+         */
+        function datLaiDongHo() {
+            // Hủy interval đang chạy nếu có
+            if (boDemTimer) {
+                clearInterval(boDemTimer);
+                boDemTimer = null;
+            }
+            dangChay = false;
+
+            // Khôi phục thời gian về 10 phút (600 giây)
+            thoiGianConLai = THOI_GIAN_MAC_DINH;
+            timerDisplay.classList.remove("timer-warning");
+            capNhatGiaoDien();
+
+            timerStatus.textContent = "Trạng thái: Đã đặt lại về 10:00 (Sẵn sàng)";
+            timerStatus.style.color = "var(--text-muted)";
+        }
+
+        // BƯỚC 6: GẮN SỰ KIỆN CHO 3 NÚT ĐIỀU KHIỂN
+        btnStart.addEventListener("click", batDauDem);
+        btnPause.addEventListener("click", tamDungDem);
+        btnReset.addEventListener("click", datLaiDongHo);
+
+        // BỔ TRỢ: Xử lý 2 nút test nhanh để chấm thi
+        btnQuickTest65.addEventListener("click", function() {
+            tamDungDem();
+            thoiGianConLai = 65; // Đặt 65 giây
+            capNhatGiaoDien();
+            timerStatus.textContent = "Trạng thái: Đã thiết lập 01:05 (Bấm 'Bắt đầu' để thấy chuyển màu đỏ & nhấp nháy sau 5 giây)";
+            timerStatus.style.color = "var(--warning-color)";
+        });
+
+        btnQuickTest5.addEventListener("click", function() {
+            tamDungDem();
+            thoiGianConLai = 5; // Đặt 5 giây
+            capNhatGiaoDien();
+            timerStatus.textContent = "Trạng thái: Đã thiết lập 00:05 (Bấm 'Bắt đầu' để thấy Modal hết giờ sau 5 giây)";
+            timerStatus.style.color = "var(--danger-color)";
+        });
+
+        // BƯỚC 7: Cập nhật hiển thị ban đầu 10:00 khi vừa load trang
+        capNhatGiaoDien();
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
